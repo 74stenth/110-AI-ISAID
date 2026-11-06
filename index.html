@@ -3,230 +3,216 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-2W9gBmnS6V976XW4Mw3mPJATQl+CAJsTOZDO3Lc+/7M='; style-src 'sha256-WI7Yd6bAz9yh2sLUKfDNYcXvGco4zsU3Msa/5n/uQL8='; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-8ZEoE349EVAQ4K2nwzEanlvPRAdIRgWjIK32N+8Zrq8='; style-src 'sha256-CqYTC8BWbsovrz9hYQGKC1CH5dcqIatqKh3dzBqOZ4M='; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Attack Replay | Interactive Cyber Attack Labs</title>
+<meta name="description" content="Free, interactive security awareness training. Watch real attacks unfold step by step and learn to spot them before they reach you.">
+<title>Attack Replay — Learn to spot attacks before they reach you</title>
 <style>
-:root{--bg:#0d1219;--bg2:#111823;--panel:#161e2b;--panel2:#1b2535;--line:#263247;--ink:#e6edf5;--mute:#8d9bb0;--dim:#5f6d82;--acc:#3ddc84;--accbg:rgba(61,220,132,.12);--red:#ff5f5f;--redbg:rgba(255,95,95,.12);--amber:#f5b942;--amberbg:rgba(245,185,66,.12);--blue:#5aa9ff;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+:root{--bg:#fafaf8;--card:#fff;--line:#e7e5df;--line2:#d9d6ce;--ink:#16161a;--ink2:#3d3d45;--mute:#74747c;--acc:#e5482b;--accbg:#fff2ee;--ok:#2d7a3a;--okbg:#eef7ef;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-.top{position:sticky;top:0;z-index:5;background:rgba(13,18,25,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
-.nav{display:flex;align-items:center;gap:28px;height:60px}
-.logo{font:700 17px var(--mono);color:var(--ink);text-decoration:none;letter-spacing:-.3px}
-.logo b{color:var(--acc)}
-.nav nav{display:flex;gap:22px;flex:1}
-.nav nav a{color:var(--mute);text-decoration:none;font-size:14px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+[id]{scroll-margin-top:72px}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.framed{border-left:1px solid var(--line);border-right:1px solid var(--line)}
+header{position:sticky;top:0;z-index:10;background:rgba(250,250,248,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;height:64px;gap:32px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:650;font-size:16px;text-decoration:none;letter-spacing:-.2px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--ink);display:grid;place-items:center}
+.mark i{width:10px;height:10px;border:2px solid var(--bg);border-radius:2px;transform:rotate(45deg)}
+.nav nav{display:flex;gap:26px;flex:1}
+.nav nav a{text-decoration:none;color:var(--ink2);font-size:14.5px}
 .nav nav a:hover{color:var(--ink)}
-.status{font:12px var(--mono);color:var(--acc);border:1px solid rgba(61,220,132,.35);background:var(--accbg);padding:4px 10px;border-radius:999px}
-.status:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--acc);margin-right:7px;vertical-align:1px}
-.hero{padding:56px 24px 36px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
-.eyebrow{font:12px var(--mono);color:var(--acc);letter-spacing:2px;margin:0 0 12px}
-.hero h1{font-size:44px;line-height:1.1;margin:0 0 14px;letter-spacing:-1.2px}
-.hero h1 span{color:var(--acc)}
-.hero p.lead{color:var(--mute);font-size:17px;margin:0 0 22px;max-width:560px}
-.cta{display:inline-block;background:var(--acc);color:#06210f;font-weight:700;padding:11px 20px;border-radius:8px;text-decoration:none}
-.cta:hover{filter:brightness(1.08)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
-.stat b{display:block;font:700 28px var(--mono)}
-.stat span{color:var(--mute);font-size:13px}
-.term-hero{grid-column:1/-1;background:var(--bg2);border:1px solid var(--line);border-radius:12px;font:13px/1.7 var(--mono);padding:14px 18px;color:var(--mute)}
-.term-hero .g{color:var(--acc)}
-[id]{scroll-margin-top:64px}.sec{display:flex;align-items:baseline;justify-content:space-between;margin:28px 0 14px}
-.sec h2{font-size:22px;margin:0}
-.sec span{color:var(--mute);font-size:13px}
-.labs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{position:relative;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0;cursor:pointer;color:var(--ink);font:inherit;overflow:hidden;transition:transform .15s,border-color .15s}
-.card:hover{transform:translateY(-2px);border-color:#3a4a66}
-.card.on{border-color:var(--acc)}
-.card .banner{height:84px;display:flex;align-items:center;padding:0 18px;font:700 26px var(--mono);border-bottom:1px solid var(--line)}
-.card .banner.c0{background:linear-gradient(135deg,#2a1520,#161e2b);color:var(--red)}
-.card .banner.c1{background:linear-gradient(135deg,#1f1a33,#161e2b);color:#a98bff}
-.card .banner.c2{background:linear-gradient(135deg,#142630,#161e2b);color:var(--blue)}
-.card .cb{padding:14px 18px 16px}
-.card h3{font-size:17px;margin:0 0 4px}
-.card p{color:var(--mute);font-size:13.5px;margin:0 0 12px}
-.meta{display:flex;gap:8px;flex-wrap:wrap}
-.chip{font:12px var(--mono);padding:2px 9px;border-radius:6px;border:1px solid var(--line);color:var(--mute)}
-.chip.easy{color:var(--acc);border-color:rgba(61,220,132,.35);background:var(--accbg)}
-.chip.med{color:var(--amber);border-color:rgba(245,185,66,.35);background:var(--amberbg)}
-.done{position:absolute;top:12px;right:12px;font:11px var(--mono);color:#06210f;background:var(--acc);padding:2px 8px;border-radius:6px;display:none}
-.card.complete .done{display:block}
-.lab{padding-top:34px;padding-bottom:40px}
-.labhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px}
-.crumb{font:12px var(--mono);color:var(--dim);margin:0 0 4px}
-.labhead h2{font-size:26px;margin:0}
-.prog{min-width:260px}
-.prog span{font:12px var(--mono);color:var(--mute)}
-.bar{height:8px;background:var(--panel2);border-radius:99px;margin-top:6px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:99px;transition:width .35s}
-.grid{display:grid;grid-template-columns:230px minmax(0,1fr) 270px;gap:18px;align-items:start}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.b{display:inline-flex;align-items:center;gap:8px;font:600 14.5px inherit;font-family:inherit;padding:10px 18px;border-radius:9px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;cursor:pointer}
+.b:hover{background:#2c2c33}
+.b.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}
+.b.ghost:hover{border-color:var(--ink)}
+.b:disabled{opacity:.35;cursor:default}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;border-bottom:1px solid var(--line)}
+.hero .l{padding:72px 48px 64px 0}
+.hero .r{padding:48px 0 48px 48px;border-left:1px solid var(--line);display:flex;align-items:center}
+.tagline{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);border:1px solid var(--line);background:var(--card);padding:5px 12px;border-radius:99px;margin:0 0 22px}
+.tagline b{width:7px;height:7px;border-radius:50%;background:var(--ok)}
+h1{font-size:54px;line-height:1.04;letter-spacing:-2px;margin:0 0 20px;font-weight:650}
+h1 em{font-style:normal;color:var(--acc)}
+.lead{font-size:18px;color:var(--ink2);margin:0 0 30px;max-width:500px}
+.ctas{display:flex;gap:10px;flex-wrap:wrap}
+.trust{display:flex;gap:22px;margin-top:34px;font-size:13px;color:var(--mute);flex-wrap:wrap}
+.trust span:before{content:"✓ ";color:var(--ok);font-weight:700}
+.mail{width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px -12px rgba(0,0,0,.12)}
+.mail .mh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);font-size:13px;color:var(--mute)}
+.mail .mh b{color:var(--ink);font-weight:600}
+.cnt{font:600 12px var(--mono);color:var(--acc);background:var(--accbg);padding:3px 9px;border-radius:99px}
+.cnt.done{color:var(--ok);background:var(--okbg)}
+.mail .mb{padding:18px 20px 20px;font-size:14.5px;color:var(--ink2)}
+.mail .row{font-size:13px;margin:0 0 4px;color:var(--mute)}
+.mail .row span{color:var(--ink)}
+.mail h3{font-size:17px;margin:12px 0 10px;color:var(--ink)}
+.flag{cursor:pointer;border-radius:4px;padding:0 2px;margin:0 -2px;transition:background .15s,box-shadow .15s}
+.flag:hover{background:#f3f1ec}
+.flag.found{background:var(--accbg);box-shadow:0 0 0 1.5px var(--acc)}
+.fakebtn{display:inline-block;margin:6px 0 4px;background:#1b4fd6;color:#fff;padding:9px 16px;border-radius:7px;font-weight:600;font-size:14px}
+.fakebtn.found{box-shadow:0 0 0 3px var(--acc)}
+.hint{font-size:13px;color:var(--mute);margin:14px 0 0;min-height:42px;border-top:1px dashed var(--line);padding-top:12px}
+.hint b{color:var(--acc)}
+.hint.win b{color:var(--ok)}
+section{border-bottom:1px solid var(--line)}
+.sh{padding:64px 0 28px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.kicker{font:12px var(--mono);color:var(--mute);letter-spacing:.5px;margin:0 0 10px}
+h2{font-size:36px;letter-spacing:-1.2px;margin:0;line-height:1.1;font-weight:650}
+h2 em{font-style:normal;color:var(--mute)}
+.sh p{max-width:380px;color:var(--ink2);margin:0}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.steps3 div{padding:28px 28px 40px;border-right:1px solid var(--line)}
+.steps3 div:last-child{border-right:0}
+.steps3 .n{font:600 14px var(--mono);color:var(--acc)}
+.steps3 h3{font-size:18px;margin:14px 0 8px;letter-spacing:-.3px}
+.steps3 p{margin:0;color:var(--ink2);font-size:15px}
+.labs{border-top:1px solid var(--line)}
+.lab-row{display:grid;grid-template-columns:56px 1fr auto;gap:20px;align-items:center;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:24px 8px;cursor:pointer;font:inherit;color:inherit;transition:background .15s}
+.lab-row:last-child{border-bottom:0}
+.lab-row:hover{background:var(--card)}
+.lab-row.on{background:var(--card);box-shadow:inset 3px 0 0 var(--acc)}
+.lab-row .num{font:600 15px var(--mono);color:var(--mute);text-align:center}
+.lab-row h3{font-size:19px;margin:0 0 3px;letter-spacing:-.3px}
+.lab-row p{margin:0 0 8px;color:var(--ink2);font-size:15px}
+.meta{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:12px;color:var(--ink2);border:1px solid var(--line);background:var(--bg);padding:2px 9px;border-radius:99px}
+.chip.lvl{color:var(--ok);border-color:#cfe6d2;background:var(--okbg)}
+.chip.lvl.m{color:#9a5b00;border-color:#f0dcb6;background:#fdf6e8}
+.go{font-size:14px;font-weight:600;white-space:nowrap}
+.lab-row.complete .go{color:var(--ok)}
+.player{border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden;margin:0 0 72px}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.ph .t{font-weight:650;font-size:16px}
+.ph .t span{color:var(--mute);font-weight:400}
+.pbar{display:flex;align-items:center;gap:12px;font:12px var(--mono);color:var(--mute)}
+.pbar .bar{width:180px;height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--ink);transition:width .35s}
+.pg{display:grid;grid-template-columns:250px minmax(0,1fr)}
+.tabs{border-right:1px solid var(--line);padding:10px 0}
+.tabs button{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;border-left:2px solid transparent;color:var(--mute);font:14.5px/1.35 inherit;font-family:inherit;padding:11px 18px;cursor:pointer}
+.tabs button:hover{color:var(--ink);background:var(--bg)}
+.tabs button.cur{color:var(--ink);border-left-color:var(--acc);background:var(--bg);font-weight:600}
+.tabs .ck{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line2);font-size:11px;line-height:15px;text-align:center;color:transparent;margin-top:1px}
+.tabs button.seen .ck{background:var(--ink);border-color:var(--ink);color:#fff}
+.tabs .qz{border-top:1px solid var(--line);margin-top:8px;padding-top:14px}
+.stage{padding:22px 26px 0}
 svg{width:100%;height:auto;display:block}
-.nd rect{fill:var(--panel2);stroke:var(--line);stroke-width:1.2;transition:fill .3s,stroke .3s}
-.nd.hot rect{fill:#3a1c22;stroke:var(--red)}
-.nd.safe rect{fill:#143024;stroke:var(--acc)}
-.nd text{fill:var(--ink);font:600 14px Inter,system-ui,sans-serif}
+.nd rect{fill:#fff;stroke:var(--line2);stroke-width:1.2;transition:fill .3s,stroke .3s}
+.nd.hot rect{fill:var(--accbg);stroke:var(--acc)}
+.nd.safe rect{fill:var(--okbg);stroke:var(--ok)}
+.nd text{fill:var(--ink);font:600 14px -apple-system,BlinkMacSystemFont,Inter,sans-serif}
 .nd text.s{fill:var(--mute);font:12px var(--mono)}
-.ar{fill:none;stroke:var(--red);stroke-width:2;stroke-dasharray:6 5;opacity:0;transition:opacity .4s}
+.ar{fill:none;stroke:var(--acc);stroke-width:1.8;stroke-dasharray:5 5;opacity:0;transition:opacity .4s}
 .ar.on{opacity:1;animation:flow 1s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-22}}
-@media (prefers-reduced-motion:reduce){.ar.on{animation:none}}
-.task{margin-top:14px}
-.tag{font:12px var(--mono);color:var(--red);margin:0 0 4px;letter-spacing:1px}
-.tag.g{color:var(--acc)}
-.title{font-size:20px;font-weight:700;margin:0 0 6px}
-.body{margin:0;color:#b7c3d3}
-.term{margin-top:14px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0a0f15}
-.term .tb{display:flex;align-items:center;gap:6px;padding:7px 12px;background:var(--panel2);border-bottom:1px solid var(--line);font:11px var(--mono);color:var(--dim)}
-.term .tb i{width:9px;height:9px;border-radius:50%;background:#3a4558;display:inline-block}
-.term .tb i:nth-child(1){background:#ff5f57}.term .tb i:nth-child(2){background:#febc2e}.term .tb i:nth-child(3){background:#28c840}
-.term .tb em{margin-left:8px;font-style:normal}
-.code{font:13px/1.6 var(--mono);color:#cfe8d6;padding:12px 14px;margin:0;white-space:pre-wrap;word-break:break-word}
-.code:before{content:"$ ";color:var(--acc)}
-.navb{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
-.btn{font:600 14px Inter,system-ui,sans-serif;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 16px;cursor:pointer}
-.btn:hover{border-color:#3a4a66}
-.btn:disabled{opacity:.4;cursor:default}
-.btn.primary{background:var(--acc);color:#06210f;border-color:var(--acc)}
-.dots{display:flex;gap:6px}
-.dot{width:26px;height:5px;border-radius:3px;background:var(--line)}
-.dot.on{background:var(--acc)}
-.quiz{margin-top:18px}
-.quiz .qh{display:flex;align-items:center;gap:10px;margin:0 0 10px}
-.quiz .qh span{font:11px var(--mono);color:var(--amber);border:1px solid rgba(245,185,66,.35);background:var(--amberbg);padding:2px 8px;border-radius:6px}
-.quiz h3{font-size:16px;margin:0}
-.opt{display:block;width:100%;text-align:left;margin:0 0 8px;font-weight:500}
-.opt.right{border-color:var(--acc);background:var(--accbg)}
-.opt.wrong{border-color:var(--red);background:var(--redbg)}
-.fb{margin:8px 0 0;font-size:14px;color:#b7c3d3}
-.xp{font:600 13px var(--mono);color:var(--amber);border:1px solid rgba(245,185,66,.35);background:var(--amberbg);padding:4px 10px;border-radius:999px}
-.rank{font:12px var(--mono);color:var(--mute)}
-.toast{position:fixed;right:22px;bottom:22px;background:var(--panel2);border:1px solid var(--amber);color:var(--amber);font:600 14px var(--mono);padding:10px 16px;border-radius:10px;opacity:0;transform:translateY(10px);transition:all .25s;pointer-events:none;z-index:9}
-.toast.show{opacity:1;transform:none}
-.why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:8px 0 10px}
-.why .box h3{font-size:16px;margin:8px 0 6px}
-.why .box p{color:var(--mute);font-size:14px;margin:0}
-.why .ic{font:700 13px var(--mono);color:var(--acc)}
-.filters{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
-.fchip{font:13px Inter,system-ui,sans-serif;background:var(--panel);color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
-.fchip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.card.hide{display:none}
-.toc{padding:14px}
-.toc h3{font:12px var(--mono);color:var(--mute);letter-spacing:1px;margin:2px 4px 10px}
-.toc button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;color:var(--mute);font:14px/1.35 Inter,system-ui,sans-serif;padding:8px;border-radius:8px;cursor:pointer}
-.toc button:hover{background:var(--panel2)}
-.toc button.cur{background:var(--panel2);color:var(--ink)}
-.toc .ck{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--dim);font:11px/15px var(--mono);text-align:center;color:transparent}
-.toc button.seen .ck{background:var(--acc);border-color:var(--acc);color:#06210f}
-.toc button.cur .ck{border-color:var(--acc)}
-.toc .qz{margin-top:6px;border-top:1px solid var(--line);padding-top:8px}
-.kbd{font:11px var(--mono);color:var(--dim);margin-top:10px;text-align:center}
-.kbd b{border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--mute)}
-.side h3{font-size:14px;margin:0 0 12px;font-family:var(--mono);color:var(--mute);letter-spacing:1px}
-.kv{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;border-bottom:1px solid var(--line)}
-.kv span{color:var(--mute)}
-.obj{list-style:none;padding:0;margin:0}
-.obj li{font-size:14px;color:#b7c3d3;padding:6px 0 6px 24px;position:relative}
-.obj li:before{content:"";position:absolute;left:0;top:11px;width:12px;height:12px;border:1.5px solid var(--dim);border-radius:3px}
-.obj li.ok:before{background:var(--acc);border-color:var(--acc)}
-.side .box+.box{margin-top:16px}
-.score b{font:700 30px var(--mono);color:var(--acc)}
-footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0;color:var(--dim);font-size:12.5px}
+@keyframes flow{to{stroke-dashoffset:-20}}
+@media (prefers-reduced-motion:reduce){.ar.on{animation:none}html{scroll-behavior:auto}}
+.tag{font:12px var(--mono);color:var(--acc);margin:6px 0 6px}
+.tag.g{color:var(--ok)}
+.title{font-size:24px;font-weight:650;letter-spacing:-.6px;margin:0 0 8px}
+.body{margin:0;color:var(--ink2);max-width:640px}
+.term{margin:18px 0 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.term .tb{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--bg);border-bottom:1px solid var(--line);font:11.5px var(--mono);color:var(--mute)}
+.term .tb i{width:9px;height:9px;border-radius:50%;background:var(--line2)}
+.term .tb em{font-style:normal;margin-left:6px}
+.code{font:13px/1.65 var(--mono);color:var(--ink);padding:12px 14px;margin:0;white-space:pre-wrap;word-break:break-word;background:#fdfdfc}
+.foot{display:flex;justify-content:space-between;align-items:center;padding:18px 26px;margin-top:22px;border-top:1px solid var(--line);background:var(--bg)}
+.foot .c{font:12px var(--mono);color:var(--mute)}
+.quiz{padding:4px 26px 24px}
+.quiz .qt{font-size:17px;font-weight:650;margin:18px 0 12px}
+.sh2{padding-top:48px}.quiz .qt b{font-weight:650}.quiz .qt span{font:11px var(--mono);color:var(--acc);display:block;margin-bottom:4px;font-weight:400}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:12px 14px;margin:0 0 8px;font:15px inherit;font-family:inherit;color:var(--ink);cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--acc);background:var(--accbg)}
+.fb{margin:8px 0 0;font-size:14.5px;color:var(--ink2)}
+.cta{background:var(--ink);color:#fff;border-bottom:0}
+.cta .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:64px;padding-bottom:64px;flex-wrap:wrap}
+.cta h2{color:#fff;max-width:620px}
+.cta h2 em{color:#9a9aa3}
+.cta .b{background:#fff;color:var(--ink);border-color:#fff}
+footer{padding:26px 0 40px;font-size:13px;color:var(--mute)}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-@media (max-width:900px){.hero{grid-template-columns:1fr}.labs{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr}.nav nav{display:none}.hero h1{font-size:34px}.labhead{flex-direction:column;align-items:flex-start}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.hero .l{padding:48px 0 32px}.hero .r{border-left:0;padding:0 0 40px}h1{font-size:40px}.steps3{grid-template-columns:1fr}.steps3 div{border-right:0;border-bottom:1px solid var(--line)}.pg{grid-template-columns:1fr}.tabs{display:none}.nav nav{display:none}.framed{border:0}}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap nav">
-<a class="logo" href="#">attack<b>_</b>replay</a>
-<nav><a href="#labs">Labs</a><a href="#lab">Workspace</a><a href="#about">About</a></nav>
-<span class="rank" id="rank">Rank: Recruit</span><span class="xp" id="xp">0 XP</span>
+<header><div class="wrap nav">
+<a class="brand" href="#top"><span class="mark"><i></i></span>Attack Replay</a>
+<nav><a href="#how">How it works</a><a href="#labs">Labs</a><a href="#about">About</a></nav>
+<a class="b" href="#labs">Start training</a>
 </div></header>
 
-<section class="wrap hero">
-<div>
-<p class="eyebrow">// INTERACTIVE ATTACK SIMULATIONS</p>
-<h1>See how attacks <span>actually</span> work.</h1>
-<p class="lead">Most people get hacked by tricks they've never seen up close. Attack Replay lets you watch real attack chains play out step by step, from the bait to the breach, so you recognize them before they happen to you. Built for students and everyday internet users. No setup, no sign-up, nothing leaves your browser.</p>
-<a class="cta" href="#labs">Start a lab →</a>
+<main id="top">
+<div class="wrap framed">
+<div class="hero">
+<div class="l">
+<p class="tagline"><b></b>Free security awareness training</p>
+<h1>Learn to spot attacks <em>before they reach you.</em></h1>
+<p class="lead">Most people get hacked by tricks they've never seen up close. Attack Replay walks you through real attacks step by step, then shows you exactly what would have stopped them.</p>
+<div class="ctas"><a class="b" href="#labs">Start the first lab →</a><a class="b ghost" href="#how">How it works</a></div>
+<div class="trust"><span>No sign-up</span><span>10 minutes</span><span>Runs only in your browser</span></div>
 </div>
-<div class="stats">
-<div class="stat"><b>3</b><span>Labs</span></div>
-<div class="stat"><b>18</b><span>Attack steps</span></div>
-<div class="stat"><b>~10m</b><span>To complete</span></div>
-<div class="term-hero"><span class="g">user@replay</span>:~$ ./start --lab phishing<br>[+] loading scenario... ok<br>[+] attacker infrastructure: simulated<br>[+] real data collected: <span class="g">0 bytes</span></div>
+<div class="r">
+<div class="mail" aria-label="Interactive phishing email exercise">
+<div class="mh"><b>Try it: find the 3 red flags</b><span class="cnt" id="cnt">0 / 3 found</span></div>
+<div class="mb">
+<p class="row">From: <span>Summit Bank Security</span> &lt;<span class="flag" data-f="0" tabindex="0" role="button">alerts@summitbank-secure.co</span>&gt;</p>
+<p class="row">To: <span>you@university.edu</span></p>
+<h3>Action required: unusual sign-in detected</h3>
+<p>We noticed a sign-in attempt from a new device. <span class="flag" data-f="1" tabindex="0" role="button">Your account will be permanently locked in 24 hours</span> unless you verify your identity.</p>
+<span class="fakebtn flag" data-f="2" tabindex="0" role="button">Verify my account</span>
+<p class="hint" id="hint">Click anything that looks suspicious.</p>
+</div>
+</div>
+</div>
+</div>
+
+<section id="how">
+<div class="sh"><div><p class="kicker">HOW IT WORKS</p><h2>Ten minutes. Three attacks. <em>No jargon.</em></h2></div><p>Each lab replays one real-world attack as an animated diagram you control, one move at a time.</p></div>
+<div class="steps3">
+<div><span class="n">[1]</span><h3>Pick an attack</h3><p>Choose a scenario people actually fall for: phishing, prompt injection, or a fake Wi‑Fi hotspot.</p></div>
+<div><span class="n">[2]</span><h3>Watch it unfold</h3><p>Step through each move and see where your data goes, with the real evidence an attacker leaves behind.</p></div>
+<div><span class="n">[3]</span><h3>Learn the defense</h3><p>Every lab ends with the fix that would have stopped it, and a quick checkpoint to lock it in.</p></div>
 </div>
 </section>
 
-<section class="wrap">
-<div class="sec"><h2>Why Attack Replay</h2><span>Learn the attacker's playbook so you can break it</span></div>
-<div class="why">
-<div class="box"><span class="ic">01 / RECOGNIZE</span><h3>Spot the bait</h3><p>See the exact emails, links, networks and prompts attackers use, and the small tells that give them away.</p></div>
-<div class="box"><span class="ic">02 / UNDERSTAND</span><h3>Watch it unfold</h3><p>Follow the data step by step through an animated diagram, so you see why an attack works, not just that it does.</p></div>
-<div class="box"><span class="ic">03 / DEFEND</span><h3>Learn the fix</h3><p>Every lab ends with the defense that would have stopped it, and a checkpoint to prove you got it.</p></div>
-</div>
-</section>
-<section class="wrap" id="labs">
-<div class="sec"><h2>Labs</h2><span>Earn XP for every step and checkpoint</span></div>
-<div class="filters" id="filters"><button class="fchip on" type="button" data-f="all">All labs</button><button class="fchip" type="button" data-f="Easy">Easy</button><button class="fchip" type="button" data-f="Medium">Medium</button></div>
+<section id="labs">
+<div class="sh"><div><p class="kicker">LABS</p><h2>Choose your first attack.</h2></div><p id="done-txt">0 of 3 labs completed</p></div>
 <div class="labs" id="picker"></div>
-</section>
-
-<section class="wrap lab" id="lab">
-<div class="labhead">
-<div><p class="crumb">labs / <span id="crumb"></span></p><h2 id="labname"></h2></div>
-<div class="prog"><span id="progtxt"></span><div class="bar"><i id="barfill"></i></div></div>
-</div>
-<div class="grid">
-<nav class="box toc" aria-label="Lab steps"><h3>LAB STEPS</h3><div id="toc"></div></nav>
-<div class="box" aria-live="polite">
-<svg viewBox="0 0 680 190" role="img" aria-labelledby="svgt"><title id="svgt">Attack flow diagram</title><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff5f5f" stroke-width="1.6"/></marker></defs><g id="arrows"></g><g id="nodes"></g></svg>
-<div class="task">
+<div class="sh sh2"><div><p class="kicker">WORKSPACE</p></div></div>
+<div class="player" id="lab" aria-live="polite">
+<div class="ph"><div class="t" id="labname"></div><div class="pbar"><span id="progtxt"></span><div class="bar"><i id="barfill"></i></div></div></div>
+<div class="pg">
+<nav class="tabs" id="toc" aria-label="Lab steps"></nav>
+<div>
+<div class="stage">
+<svg viewBox="0 0 680 190" role="img" aria-labelledby="svgt"><title id="svgt">Attack flow diagram</title><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#e5482b" stroke-width="1.6"/></marker></defs><g id="arrows"></g><g id="nodes"></g></svg>
 <p class="tag" id="tag"></p>
 <p class="title" id="title"></p>
 <p class="body" id="body"></p>
-<div class="term"><div class="tb"><i></i><i></i><i></i><em id="termt">evidence.log</em></div><p class="code" id="code"></p></div>
+<div class="term"><div class="tb"><i></i><i></i><i></i><em id="termt">evidence</em></div><p class="code" id="code"></p></div>
 </div>
-<div class="navb">
-<button class="btn" id="prev" type="button">← Back</button>
-<div class="dots" id="dots"></div>
-<button class="btn primary" id="next" type="button">Next →</button>
+<div class="quiz" id="quiz"><p class="qt"><span>CHECKPOINT</span><b id="q"></b></p><div id="opts"></div><p class="fb" id="fb"></p></div>
+<div class="foot"><button class="b ghost" id="prev" type="button">← Back</button><span class="c" id="stepc"></span><button class="b" id="next" type="button">Continue →</button></div>
 </div>
-<div class="quiz" id="quiz">
-<div class="qh"><span>CHECKPOINT</span><h3 id="q"></h3></div>
-<div id="opts"></div>
-<p class="fb" id="fb"></p>
 </div>
-<p class="kbd">Tip: use <b>←</b> <b>→</b> keys to move between steps</p>
-</div>
-<aside class="side">
-<div class="box">
-<h3>LAB INFO</h3>
-<div class="kv"><span>Difficulty</span><b id="i-diff"></b></div>
-<div class="kv"><span>Category</span><b id="i-cat"></b></div>
-<div class="kv"><span>Time</span><b id="i-time"></b></div>
-<div class="kv"><span>Technique</span><b id="i-tech"></b></div>
-</div>
-<div class="box">
-<h3>OBJECTIVES</h3>
-<ul class="obj"><li id="o1">Walk through the attack chain</li><li id="o2">Learn the defense</li><li id="o3">Pass the checkpoint</li></ul>
-</div>
-<div class="box score">
-<h3>YOUR PROGRESS</h3>
-<b id="score">0/3</b><div class="fb">labs completed</div>
-</div>
-</aside>
 </div>
 </section>
+</div>
+
+<section class="cta"><div class="wrap">
+<h2>Ten minutes now beats a stolen account later. <em>Start with the attack that hits students most.</em></h2>
+<a class="b" href="#labs">Start training →</a>
+</div></section>
+</main>
 
 <footer id="about"><div class="wrap">
-<span>attack_replay · Built for an Intro to Cybersecurity lab. All companies, URLs and networks shown are fictional.</span>
+<span>Attack Replay · Built for an Intro to Cybersecurity lab. All companies, links and networks shown are fictional.</span>
 <span>Static site · no cookies · no tracking · strict Content-Security-Policy</span>
 </div></footer>
-<div class="toast" id="toast" role="status"></div>
 
 <script>
 "use strict";
@@ -264,11 +250,10 @@ steps:[
 {t:"The DNS trick",b:"When you type a website's name, the attacker answers with their own server's address. HTTPS still protects you — but only if you don't click through the certificate warning.",c:"Your connection is not private\nNET::ERR_CERT_AUTHORITY_INVALID   ← this is the attack",a:[0,1,2],h:[2,3]},
 {t:"What would have stopped it",b:"Turn off auto-join for open networks and forget ones you don't use. Prefer your phone's hotspot or a VPN on public Wi-Fi, and never click past a certificate warning.",c:"Defenses: forget open networks · VPN / personal hotspot · heed cert warnings",a:[],h:[0],safe:true}],
 quiz:{q:"On café Wi-Fi, a familiar site shows a certificate warning. What should you do?",o:["Click \"Proceed anyway\" — it's a site you trust","Disconnect and switch to a network you control","Clear your cookies and reload"],a:1,e:"A certificate warning on a site you know is the classic sign someone is in the middle. Leave that network."}}];
-const META=[{diff:"Easy",cls:"easy",cat:"Social engineering",time:"3 min",tech:"AiTM phishing",icon:"[ phish ]"},{diff:"Medium",cls:"med",cat:"AI security",time:"4 min",tech:"Indirect injection",icon:"[ prompt ]"},{diff:"Easy",cls:"easy",cat:"Network",time:"3 min",tech:"Rogue access point",icon:"[ wi-fi ]"}];
+const META=[{diff:"Beginner",m:"",cat:"Social engineering",time:"3 min"},{diff:"Intermediate",m:" m",cat:"AI security",time:"4 min"},{diff:"Beginner",m:"",cat:"Network",time:"3 min"}];
+const FLAGS=["The sender's domain is summitbank-secure.co, not summitbank.com. Attackers register look-alike domains.","Pressure and a deadline. Real banks don't threaten to lock you out in 24 hours to make you act fast.","The button hides where it really goes. Hover first: it points to the attacker's copycat login page."];
 const NS="http://www.w3.org/2000/svg",X=[40,200,360,520],W=120,Y=80,H=56;
-let cur=0,step=0,xp=0,tt;const solved=new Set(),seen=new Set();
-const RANKS=[[0,"Recruit"],[60,"Analyst"],[150,"Defender"],[300,"Red Teamer"]];
-function award(n,why){xp+=n;$("xp").textContent=xp+" XP";let r="Recruit";for(const[k,v]of RANKS)if(xp>=k)r=v;$("rank").textContent="Rank: "+r;const t=$("toast");t.textContent="+"+n+" XP · "+why;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),1600)}
+let cur=0,step=0;const solved=new Set(),seen=new Set(),found=new Set();
 const $=id=>document.getElementById(id);
 function el(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!==undefined)e.textContent=text;return e}
 function h(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
@@ -277,49 +262,48 @@ function arrowPath(a){const[f,t,r]=a;
  if(r==="top")return`M${cx(f)} ${Y} L${cx(f)} 46 L${cx(t)} 46 L${cx(t)} ${Y-2}`;
  if(t>f)return`M${X[f]+W+2} 101 L${X[t]-4} 101`;
  return`M${X[f]-2} 117 L${X[t]+W+4} 117`}
-function buildPicker(){const p=$("picker");SC.forEach((s,i)=>{const m=META[i];const b=h("button","card");b.type="button";
- const ban=h("div","banner c"+i,m.icon);const cb=h("div","cb");cb.append(h("h3","",s.name),h("p","",s.blurb));
- const mt=h("div","meta");mt.append(h("span","chip "+m.cls,m.diff),h("span","chip",m.cat),h("span","chip",m.time));cb.append(mt);
- b.append(ban,cb,h("span","done","✓ COMPLETED"));
- b.dataset.diff=m.diff;b.addEventListener("click",()=>{load(i);$("lab").scrollIntoView()});p.appendChild(b)});
- document.querySelectorAll(".fchip").forEach(c=>c.addEventListener("click",()=>{document.querySelectorAll(".fchip").forEach(x=>x.classList.toggle("on",x===c));const f=c.dataset.f;[...p.children].forEach(b=>b.classList.toggle("hide",f!=="all"&&b.dataset.diff!==f))}))}
-function load(i){cur=i;step=0;const s=SC[i],m=META[i];
+document.querySelectorAll(".flag").forEach(f=>{const go=()=>{const i=+f.dataset.f;found.add(i);f.classList.add("found");
+ const c=$("cnt"),hn=$("hint");c.textContent=found.size+" / 3 found";hn.replaceChildren();
+ if(found.size===3){c.classList.add("done");hn.classList.add("win");hn.append(h("b","","All 3 found. "),document.createTextNode("Now see what happens to someone who clicks. Lab 1 replays it."))}
+ else{hn.append(h("b","","Red flag: "),document.createTextNode(FLAGS[i]))}};
+ f.addEventListener("click",go);f.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}})});
+function buildPicker(){const p=$("picker");SC.forEach((s,i)=>{const m=META[i];const b=h("button","lab-row");b.type="button";
+ const mid=h("div");mid.append(h("h3","",s.name),h("p","",s.blurb));const mt=h("div","meta");mt.append(h("span","chip lvl"+m.m,m.diff),h("span","chip",m.cat),h("span","chip",s.steps.length+" steps · "+m.time));mid.append(mt);
+ b.append(h("span","num","0"+(i+1)),mid,h("span","go","Start lab →"));
+ b.addEventListener("click",()=>{load(i);$("lab").scrollIntoView()});p.appendChild(b)})}
+function load(i){cur=i;step=0;const s=SC[i];
  [...$("picker").children].forEach((b,j)=>b.classList.toggle("on",j===i));
- $("crumb").textContent=s.name.toLowerCase().replace(/[^a-z0-9]+/g,"-");$("labname").textContent=s.name;
- $("i-diff").textContent=m.diff;$("i-cat").textContent=m.cat;$("i-time").textContent=m.time;$("i-tech").textContent=m.tech;
+ $("labname").replaceChildren(document.createTextNode("Lab 0"+(i+1)+" "),h("span","","· "+s.name));
  const A=$("arrows"),N=$("nodes");A.replaceChildren();N.replaceChildren();
  s.arrows.forEach((a,k)=>A.appendChild(el("path",{d:arrowPath(a),class:"ar",id:"ar"+k,"marker-end":"url(#ah)"})));
- s.nodes.forEach((n,k)=>{const g=el("g",{class:"nd",id:"nd"+k});g.append(el("rect",{x:X[k],y:Y,width:W,height:H,rx:8}),el("text",{x:cx(k),y:Y+23,"text-anchor":"middle"},n[0]),el("text",{x:cx(k),y:Y+42,"text-anchor":"middle",class:"s"},n[1]));N.appendChild(g)});
- const D=$("dots");D.replaceChildren();s.steps.forEach(()=>D.appendChild(h("span","dot")));
+ s.nodes.forEach((n,k)=>{const g=el("g",{class:"nd",id:"nd"+k});g.append(el("rect",{x:X[k],y:Y,width:W,height:H,rx:9}),el("text",{x:cx(k),y:Y+23,"text-anchor":"middle"},n[0]),el("text",{x:cx(k),y:Y+42,"text-anchor":"middle",class:"s"},n[1]));N.appendChild(g)});
  const T=$("toc");T.replaceChildren();s.steps.forEach((st,k)=>{const b=h("button");b.type="button";b.append(h("span","ck","✓"),h("span","",st.t));b.addEventListener("click",()=>{step=k;render()});T.appendChild(b)});
- const qb=h("button","qz");qb.type="button";qb.append(h("span","ck","✓"),h("span","","Checkpoint quiz"));qb.addEventListener("click",()=>{step=s.steps.length-1;render();$("quiz").scrollIntoView({block:"center"})});T.appendChild(qb);
+ const qb=h("button","qz");qb.type="button";qb.append(h("span","ck","✓"),h("span","","Checkpoint"));qb.addEventListener("click",()=>{step=s.steps.length-1;render();$("quiz").scrollIntoView({block:"center"})});T.appendChild(qb);
  buildQuiz();render()}
-function render(){const s=SC[cur],st=s.steps[step],n=s.steps.length;
- $("tag").textContent=(st.safe?"DEFENSE":"TASK "+(step+1))+" // STEP "+(step+1)+" OF "+n;
+function render(){const s=SC[cur],st=s.steps[step],n=s.steps.length;seen.add(cur+"-"+step);
+ $("tag").textContent=st.safe?"THE DEFENSE":"STEP "+(step+1)+" — HOW THE ATTACK WORKS";
  $("tag").classList.toggle("g",!!st.safe);
  $("title").textContent=st.t;$("body").textContent=st.b;$("code").textContent=st.c;
- $("termt").textContent=st.safe?"defense.md":"evidence.log";
+ $("termt").textContent=st.safe?"defenses.txt":"evidence.log";
  s.arrows.forEach((_,k)=>$("ar"+k).classList.toggle("on",st.a.includes(k)));
  s.nodes.forEach((_,k)=>{const g=$("nd"+k);g.classList.toggle("hot",!st.safe&&st.h.includes(k));g.classList.toggle("safe",!!st.safe&&st.h.includes(k))});
- [...$("dots").children].forEach((d,j)=>d.classList.toggle("on",j<=step));
- const pct=Math.round(((step+1)/n)*(solved.has(cur)?100:90));
- $("barfill").style.width=pct+"%";$("progtxt").textContent="Progress · "+pct+"%";
- $("o1").classList.toggle("ok",step>=n-2);$("o2").classList.toggle("ok",step===n-1);$("o3").classList.toggle("ok",solved.has(cur));
- const key=cur+"-"+step;if(!seen.has(key)){seen.add(key);if(seen.size>1)award(10,"step cleared")}
- [...$("toc").children].forEach((b,j)=>{const last=j===n;b.classList.toggle("cur",j===step);b.classList.toggle("seen",last?solved.has(cur):seen.has(cur+"-"+j))});
+ [...$("toc").children].forEach((b,j)=>{b.classList.toggle("cur",j===step);b.classList.toggle("seen",j===n?solved.has(cur):seen.has(cur+"-"+j))});
+ const pct=Math.round((step+1+(solved.has(cur)?1:0))/(n+1)*100);
+ $("barfill").style.width=pct+"%";$("progtxt").textContent=pct+"% complete";
+ $("stepc").textContent="Step "+(step+1)+" of "+n;
  $("prev").disabled=step===0;
- $("next").textContent=step===n-1?"Next lab →":"Next →";
+ $("next").textContent=step===n-1?(cur<SC.length-1?"Next lab →":"Back to lab 01 →"):"Continue →";
  $("quiz").hidden=step!==n-1}
 function buildQuiz(){const q=SC[cur].quiz;$("q").textContent=q.q;$("fb").textContent="";
  const O=$("opts");O.replaceChildren();
- q.o.forEach((t,k)=>{const b=h("button","btn opt",t);b.type="button";
+ q.o.forEach((t,k)=>{const b=h("button","opt",t);b.type="button";
   b.addEventListener("click",()=>{[...O.children].forEach(x=>x.classList.remove("right","wrong"));
-   if(k===q.a){b.classList.add("right");$("fb").textContent="Correct. "+q.e;if(!solved.has(cur))award(50,"checkpoint passed");solved.add(cur);$("picker").children[cur].classList.add("complete")}
+   if(k===q.a){b.classList.add("right");$("fb").textContent="Correct. "+q.e;solved.add(cur);const r=$("picker").children[cur];r.classList.add("complete");r.querySelector(".go").textContent="✓ Completed"}
    else{b.classList.add("wrong");$("fb").textContent="Not quite. Try another answer."}
-   $("score").textContent=solved.size+"/"+SC.length;render()});O.appendChild(b)})}
-$("next").addEventListener("click",()=>{if(step<SC[cur].steps.length-1){step++;render()}else load((cur+1)%SC.length)});
+   $("done-txt").textContent=solved.size+" of "+SC.length+" labs completed";render()});O.appendChild(b)})}
+$("next").addEventListener("click",()=>{if(step<SC[cur].steps.length-1){step++;render()}else{load((cur+1)%SC.length);$("lab").scrollIntoView()}});
 $("prev").addEventListener("click",()=>{if(step>0){step--;render()}});
-document.addEventListener("keydown",e=>{if(e.target.tagName==="BUTTON")return;if(e.key==="ArrowRight")$("next").click();if(e.key==="ArrowLeft")$("prev").click()});
+document.addEventListener("keydown",e=>{const t=e.target;if(t.tagName==="BUTTON"||t.classList.contains("flag"))return;if(e.key==="ArrowRight")$("next").click();if(e.key==="ArrowLeft")$("prev").click()});
 buildPicker();load(0);
 </script>
 </body>
