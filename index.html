@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-kZLtQ8d0uQZUEUa1sasoqgJjhUI92y2ss0MX2vuPx44='; style-src 'sha256-9y1ODuOQhdotaZGyxvQtL0FH4O8D7T2p1nvuFiqiGx4='; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-2W9gBmnS6V976XW4Mw3mPJATQl+CAJsTOZDO3Lc+/7M='; style-src 'sha256-WI7Yd6bAz9yh2sLUKfDNYcXvGco4zsU3Msa/5n/uQL8='; img-src 'none'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Attack Replay | Interactive Cyber Attack Labs</title>
 <style>
@@ -54,7 +54,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,system-u
 .chip.med{color:var(--amber);border-color:rgba(245,185,66,.35);background:var(--amberbg)}
 .done{position:absolute;top:12px;right:12px;font:11px var(--mono);color:#06210f;background:var(--acc);padding:2px 8px;border-radius:6px;display:none}
 .card.complete .done{display:block}
-.lab{scroll-margin-top:64px;padding-top:34px;padding-bottom:40px}
+.lab{padding-top:34px;padding-bottom:40px}
 .labhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px}
 .crumb{font:12px var(--mono);color:var(--dim);margin:0 0 4px}
 .labhead h2{font-size:26px;margin:0}
@@ -62,7 +62,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,system-u
 .prog span{font:12px var(--mono);color:var(--mute)}
 .bar{height:8px;background:var(--panel2);border-radius:99px;margin-top:6px;overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:99px;transition:width .35s}
-.grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px}
+.grid{display:grid;grid-template-columns:230px minmax(0,1fr) 270px;gap:18px;align-items:start}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
 svg{width:100%;height:auto;display:block}
 .nd rect{fill:var(--panel2);stroke:var(--line);stroke-width:1.2;transition:fill .3s,stroke .3s}
@@ -102,6 +102,29 @@ svg{width:100%;height:auto;display:block}
 .opt.right{border-color:var(--acc);background:var(--accbg)}
 .opt.wrong{border-color:var(--red);background:var(--redbg)}
 .fb{margin:8px 0 0;font-size:14px;color:#b7c3d3}
+.xp{font:600 13px var(--mono);color:var(--amber);border:1px solid rgba(245,185,66,.35);background:var(--amberbg);padding:4px 10px;border-radius:999px}
+.rank{font:12px var(--mono);color:var(--mute)}
+.toast{position:fixed;right:22px;bottom:22px;background:var(--panel2);border:1px solid var(--amber);color:var(--amber);font:600 14px var(--mono);padding:10px 16px;border-radius:10px;opacity:0;transform:translateY(10px);transition:all .25s;pointer-events:none;z-index:9}
+.toast.show{opacity:1;transform:none}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:8px 0 10px}
+.why .box h3{font-size:16px;margin:8px 0 6px}
+.why .box p{color:var(--mute);font-size:14px;margin:0}
+.why .ic{font:700 13px var(--mono);color:var(--acc)}
+.filters{display:flex;gap:8px;margin:0 0 14px;flex-wrap:wrap}
+.fchip{font:13px Inter,system-ui,sans-serif;background:var(--panel);color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.fchip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card.hide{display:none}
+.toc{padding:14px}
+.toc h3{font:12px var(--mono);color:var(--mute);letter-spacing:1px;margin:2px 4px 10px}
+.toc button{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;color:var(--mute);font:14px/1.35 Inter,system-ui,sans-serif;padding:8px;border-radius:8px;cursor:pointer}
+.toc button:hover{background:var(--panel2)}
+.toc button.cur{background:var(--panel2);color:var(--ink)}
+.toc .ck{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--dim);font:11px/15px var(--mono);text-align:center;color:transparent}
+.toc button.seen .ck{background:var(--acc);border-color:var(--acc);color:#06210f}
+.toc button.cur .ck{border-color:var(--acc)}
+.toc .qz{margin-top:6px;border-top:1px solid var(--line);padding-top:8px}
+.kbd{font:11px var(--mono);color:var(--dim);margin-top:10px;text-align:center}
+.kbd b{border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--mute)}
 .side h3{font-size:14px;margin:0 0 12px;font-family:var(--mono);color:var(--mute);letter-spacing:1px}
 .kv{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;border-bottom:1px solid var(--line)}
 .kv span{color:var(--mute)}
@@ -113,21 +136,21 @@ svg{width:100%;height:auto;display:block}
 .score b{font:700 30px var(--mono);color:var(--acc)}
 footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0;color:var(--dim);font-size:12.5px}
 footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-@media (max-width:900px){.hero{grid-template-columns:1fr}.labs{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.nav nav{display:none}.hero h1{font-size:34px}.labhead{flex-direction:column;align-items:flex-start}}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.labs{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.why{grid-template-columns:1fr}.nav nav{display:none}.hero h1{font-size:34px}.labhead{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
 <header class="top"><div class="wrap nav">
 <a class="logo" href="#">attack<b>_</b>replay</a>
 <nav><a href="#labs">Labs</a><a href="#lab">Workspace</a><a href="#about">About</a></nav>
-<span class="status">Simulation mode · safe</span>
+<span class="rank" id="rank">Rank: Recruit</span><span class="xp" id="xp">0 XP</span>
 </div></header>
 
 <section class="wrap hero">
 <div>
 <p class="eyebrow">// INTERACTIVE ATTACK SIMULATIONS</p>
 <h1>See how attacks <span>actually</span> work.</h1>
-<p class="lead">Step through real-world attack chains one move at a time — from the bait to the breach — then prove you'd catch it. No setup, no VMs, nothing leaves your browser.</p>
+<p class="lead">Most people get hacked by tricks they've never seen up close. Attack Replay lets you watch real attack chains play out step by step, from the bait to the breach, so you recognize them before they happen to you. Built for students and everyday internet users. No setup, no sign-up, nothing leaves your browser.</p>
 <a class="cta" href="#labs">Start a lab →</a>
 </div>
 <div class="stats">
@@ -138,8 +161,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 </div>
 </section>
 
+<section class="wrap">
+<div class="sec"><h2>Why Attack Replay</h2><span>Learn the attacker's playbook so you can break it</span></div>
+<div class="why">
+<div class="box"><span class="ic">01 / RECOGNIZE</span><h3>Spot the bait</h3><p>See the exact emails, links, networks and prompts attackers use, and the small tells that give them away.</p></div>
+<div class="box"><span class="ic">02 / UNDERSTAND</span><h3>Watch it unfold</h3><p>Follow the data step by step through an animated diagram, so you see why an attack works, not just that it does.</p></div>
+<div class="box"><span class="ic">03 / DEFEND</span><h3>Learn the fix</h3><p>Every lab ends with the defense that would have stopped it, and a checkpoint to prove you got it.</p></div>
+</div>
+</section>
 <section class="wrap" id="labs">
-<div class="sec"><h2>Labs</h2><span>Pick a scenario to load it into the workspace</span></div>
+<div class="sec"><h2>Labs</h2><span>Earn XP for every step and checkpoint</span></div>
+<div class="filters" id="filters"><button class="fchip on" type="button" data-f="all">All labs</button><button class="fchip" type="button" data-f="Easy">Easy</button><button class="fchip" type="button" data-f="Medium">Medium</button></div>
 <div class="labs" id="picker"></div>
 </section>
 
@@ -149,6 +181,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 <div class="prog"><span id="progtxt"></span><div class="bar"><i id="barfill"></i></div></div>
 </div>
 <div class="grid">
+<nav class="box toc" aria-label="Lab steps"><h3>LAB STEPS</h3><div id="toc"></div></nav>
 <div class="box" aria-live="polite">
 <svg viewBox="0 0 680 190" role="img" aria-labelledby="svgt"><title id="svgt">Attack flow diagram</title><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#ff5f5f" stroke-width="1.6"/></marker></defs><g id="arrows"></g><g id="nodes"></g></svg>
 <div class="task">
@@ -167,6 +200,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 <div id="opts"></div>
 <p class="fb" id="fb"></p>
 </div>
+<p class="kbd">Tip: use <b>←</b> <b>→</b> keys to move between steps</p>
 </div>
 <aside class="side">
 <div class="box">
@@ -192,6 +226,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
 <span>attack_replay · Built for an Intro to Cybersecurity lab. All companies, URLs and networks shown are fictional.</span>
 <span>Static site · no cookies · no tracking · strict Content-Security-Policy</span>
 </div></footer>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 "use strict";
@@ -231,7 +266,9 @@ steps:[
 quiz:{q:"On café Wi-Fi, a familiar site shows a certificate warning. What should you do?",o:["Click \"Proceed anyway\" — it's a site you trust","Disconnect and switch to a network you control","Clear your cookies and reload"],a:1,e:"A certificate warning on a site you know is the classic sign someone is in the middle. Leave that network."}}];
 const META=[{diff:"Easy",cls:"easy",cat:"Social engineering",time:"3 min",tech:"AiTM phishing",icon:"[ phish ]"},{diff:"Medium",cls:"med",cat:"AI security",time:"4 min",tech:"Indirect injection",icon:"[ prompt ]"},{diff:"Easy",cls:"easy",cat:"Network",time:"3 min",tech:"Rogue access point",icon:"[ wi-fi ]"}];
 const NS="http://www.w3.org/2000/svg",X=[40,200,360,520],W=120,Y=80,H=56;
-let cur=0,step=0;const solved=new Set();
+let cur=0,step=0,xp=0,tt;const solved=new Set(),seen=new Set();
+const RANKS=[[0,"Recruit"],[60,"Analyst"],[150,"Defender"],[300,"Red Teamer"]];
+function award(n,why){xp+=n;$("xp").textContent=xp+" XP";let r="Recruit";for(const[k,v]of RANKS)if(xp>=k)r=v;$("rank").textContent="Rank: "+r;const t=$("toast");t.textContent="+"+n+" XP · "+why;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),1600)}
 const $=id=>document.getElementById(id);
 function el(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!==undefined)e.textContent=text;return e}
 function h(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
@@ -244,7 +281,8 @@ function buildPicker(){const p=$("picker");SC.forEach((s,i)=>{const m=META[i];co
  const ban=h("div","banner c"+i,m.icon);const cb=h("div","cb");cb.append(h("h3","",s.name),h("p","",s.blurb));
  const mt=h("div","meta");mt.append(h("span","chip "+m.cls,m.diff),h("span","chip",m.cat),h("span","chip",m.time));cb.append(mt);
  b.append(ban,cb,h("span","done","✓ COMPLETED"));
- b.addEventListener("click",()=>{load(i);$("lab").scrollIntoView()});p.appendChild(b)})}
+ b.dataset.diff=m.diff;b.addEventListener("click",()=>{load(i);$("lab").scrollIntoView()});p.appendChild(b)});
+ document.querySelectorAll(".fchip").forEach(c=>c.addEventListener("click",()=>{document.querySelectorAll(".fchip").forEach(x=>x.classList.toggle("on",x===c));const f=c.dataset.f;[...p.children].forEach(b=>b.classList.toggle("hide",f!=="all"&&b.dataset.diff!==f))}))}
 function load(i){cur=i;step=0;const s=SC[i],m=META[i];
  [...$("picker").children].forEach((b,j)=>b.classList.toggle("on",j===i));
  $("crumb").textContent=s.name.toLowerCase().replace(/[^a-z0-9]+/g,"-");$("labname").textContent=s.name;
@@ -253,6 +291,8 @@ function load(i){cur=i;step=0;const s=SC[i],m=META[i];
  s.arrows.forEach((a,k)=>A.appendChild(el("path",{d:arrowPath(a),class:"ar",id:"ar"+k,"marker-end":"url(#ah)"})));
  s.nodes.forEach((n,k)=>{const g=el("g",{class:"nd",id:"nd"+k});g.append(el("rect",{x:X[k],y:Y,width:W,height:H,rx:8}),el("text",{x:cx(k),y:Y+23,"text-anchor":"middle"},n[0]),el("text",{x:cx(k),y:Y+42,"text-anchor":"middle",class:"s"},n[1]));N.appendChild(g)});
  const D=$("dots");D.replaceChildren();s.steps.forEach(()=>D.appendChild(h("span","dot")));
+ const T=$("toc");T.replaceChildren();s.steps.forEach((st,k)=>{const b=h("button");b.type="button";b.append(h("span","ck","✓"),h("span","",st.t));b.addEventListener("click",()=>{step=k;render()});T.appendChild(b)});
+ const qb=h("button","qz");qb.type="button";qb.append(h("span","ck","✓"),h("span","","Checkpoint quiz"));qb.addEventListener("click",()=>{step=s.steps.length-1;render();$("quiz").scrollIntoView({block:"center"})});T.appendChild(qb);
  buildQuiz();render()}
 function render(){const s=SC[cur],st=s.steps[step],n=s.steps.length;
  $("tag").textContent=(st.safe?"DEFENSE":"TASK "+(step+1))+" // STEP "+(step+1)+" OF "+n;
@@ -265,6 +305,8 @@ function render(){const s=SC[cur],st=s.steps[step],n=s.steps.length;
  const pct=Math.round(((step+1)/n)*(solved.has(cur)?100:90));
  $("barfill").style.width=pct+"%";$("progtxt").textContent="Progress · "+pct+"%";
  $("o1").classList.toggle("ok",step>=n-2);$("o2").classList.toggle("ok",step===n-1);$("o3").classList.toggle("ok",solved.has(cur));
+ const key=cur+"-"+step;if(!seen.has(key)){seen.add(key);if(seen.size>1)award(10,"step cleared")}
+ [...$("toc").children].forEach((b,j)=>{const last=j===n;b.classList.toggle("cur",j===step);b.classList.toggle("seen",last?solved.has(cur):seen.has(cur+"-"+j))});
  $("prev").disabled=step===0;
  $("next").textContent=step===n-1?"Next lab →":"Next →";
  $("quiz").hidden=step!==n-1}
@@ -272,7 +314,7 @@ function buildQuiz(){const q=SC[cur].quiz;$("q").textContent=q.q;$("fb").textCon
  const O=$("opts");O.replaceChildren();
  q.o.forEach((t,k)=>{const b=h("button","btn opt",t);b.type="button";
   b.addEventListener("click",()=>{[...O.children].forEach(x=>x.classList.remove("right","wrong"));
-   if(k===q.a){b.classList.add("right");$("fb").textContent="Correct. "+q.e;solved.add(cur);$("picker").children[cur].classList.add("complete")}
+   if(k===q.a){b.classList.add("right");$("fb").textContent="Correct. "+q.e;if(!solved.has(cur))award(50,"checkpoint passed");solved.add(cur);$("picker").children[cur].classList.add("complete")}
    else{b.classList.add("wrong");$("fb").textContent="Not quite. Try another answer."}
    $("score").textContent=solved.size+"/"+SC.length;render()});O.appendChild(b)})}
 $("next").addEventListener("click",()=>{if(step<SC[cur].steps.length-1){step++;render()}else load((cur+1)%SC.length)});
